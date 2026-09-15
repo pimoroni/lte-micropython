@@ -206,6 +206,8 @@ class LTE:
                 line = line.strip()
                 if line in [b"OK", b"ERROR", b"DOWNLOAD"]:
                     status = line.decode("ascii")
+                elif line.startswith((b"+CME ERROR:", b"+CMS ERROR:")):
+                    raise CellularError(str(line, "ascii"))
                 elif line != b"":
                     result.append(str(line, "ascii"))
                 start = time.ticks_ms()

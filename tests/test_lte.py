@@ -64,3 +64,14 @@ def test_send_at_command_raises_on_error(uart, reset_pin):
 
     with pytest.raises(CellularError):
         lte._send_at_command("AT+CFUN=1")
+
+
+def test_send_at_command_raises_cme_error_with_text(uart, reset_pin):
+    from lte import CellularError
+
+    lte = make_lte(uart, reset_pin, {"AT+CPIN?": [b"+CME ERROR: SIM not inserted"]})
+
+    with pytest.raises(CellularError) as excinfo:
+        lte._send_at_command("AT+CPIN?", 1)
+
+    assert "SIM not inserted" in excinfo.value.message
