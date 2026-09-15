@@ -73,6 +73,8 @@ class LTE:
         try:
             response = self._send_at_command("AT+CSQ", 1)
             quality = int(response.split(":")[1].split(",")[0])
+            if quality == 99:
+                return None
             # Conversion as per AT command set datasheet
             return -113 + (2 * quality)
         except CellularError:

@@ -29,11 +29,10 @@ def test_signal_quality_parses_rssi(uart, reset_pin):
     assert lte.signal_quality() == -69
 
 
-def test_signal_quality_no_signal_returns_sentinel(uart, reset_pin):
+def test_signal_quality_no_signal_returns_none(uart, reset_pin):
     lte = make_lte(uart, reset_pin, {"AT+CSQ": [b"+CSQ: 99,99", b"OK"]})
 
-    # Baseline behaviour: the 99 "unknown" sentinel is converted like a reading.
-    assert lte.signal_quality() == 85
+    assert lte.signal_quality() is None
 
 
 def test_signal_quality_on_error_returns_none(uart, reset_pin):
