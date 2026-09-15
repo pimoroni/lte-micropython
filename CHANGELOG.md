@@ -1,5 +1,10 @@
 # Changelog
 
+Unreleased
+----------
+
+* Hold RESET low for 2.5s so the module reliably restarts
+
 1.0.0
 -----
 

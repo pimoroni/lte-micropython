@@ -42,7 +42,7 @@ class LTE:
 
         if not skip_reset:
             self._reset.value(0)
-            time.sleep(1.0)
+            time.sleep(2.5)
             self._reset.value(1)
 
         if netlight_led:

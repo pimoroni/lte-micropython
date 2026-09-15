@@ -10,11 +10,11 @@ def make_lte(uart, reset_pin, responses=None, **kwargs):
     return LTE("test.apn", uart=uart, reset_pin=reset_pin, **kwargs)
 
 
-def test_reset_pulse_holds_low_for_one_second(clock, uart, reset_pin):
+def test_reset_pulse_holds_low_for_datasheet_duration(clock, uart, reset_pin):
     make_lte(uart, reset_pin, skip_reset=False)
 
     assert reset_pin.values == [0, 1]
-    assert clock.sleeps == [1.0]
+    assert clock.sleeps == [2.5]
 
 
 def test_skip_reset_leaves_reset_alone(uart, reset_pin):
