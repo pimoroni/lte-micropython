@@ -132,7 +132,6 @@ class LTE:
         # Wait for the cellular module to respond to AT commands
         self._wait_ready()
 
-        self._send_at_command("ATE0")                                  # Disable local echo
         self._send_at_command(f'AT+CGDCONT=1,"IP","{self._apn}"')  # Set apn and activate pdp context
 
         # Wait for roaming lte connection to be established
@@ -155,6 +154,7 @@ class LTE:
         while time.time() <= giveup:
             try:
                 self._send_at_command("AT")
+                self._send_at_command("ATE0")
                 return  # If __send_at_command doesn't throw an exception then we're good!
             except CellularError as e:  # noqa: PERF203
                 print(e)

@@ -75,3 +75,11 @@ def test_send_at_command_raises_cme_error_with_text(uart, reset_pin):
         lte._send_at_command("AT+CPIN?", 1)
 
     assert "SIM not inserted" in excinfo.value.message
+
+
+def test_wait_ready_disables_echo(uart, reset_pin):
+    lte = make_lte(uart, reset_pin, {"AT": [b"OK"], "ATE0": [b"OK"]})
+
+    lte._wait_ready()
+
+    assert "ATE0\r" in uart.written
