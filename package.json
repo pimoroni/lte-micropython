@@ -1,0 +1,9 @@
+{
+ "version": "1.0.0",
+ "urls": [
+  [
+   "lte.py",
+   "github:pimoroni/lte-micropython/src/lte.py"
+  ]
+ ]
+}
