@@ -216,3 +216,18 @@ class LTE:
                 start = time.ticks_ms()
 
         return status, result
+
+
+    def send_text_message(self, recipient, body, timeout=5.0):
+        self._send_at_command("AT+CMGF=1")
+        self._uart.write('AT+CMGS="')
+        self._uart.write(recipient.encode("ascii"))
+        self._uart.write(b'"\r')
+        time.sleep(0.5)
+        self._uart.write(body.encode("ascii"))
+        self._uart.write(b"\x1a\r")
+        self._uart.flush()
+
+        status, _ = self._read_result(1, timeout=timeout)
+
+        return status == "OK"

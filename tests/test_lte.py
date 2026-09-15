@@ -81,3 +81,18 @@ def test_wait_ready_disables_echo(uart, reset_pin):
     lte._wait_ready()
 
     assert "ATE0\r" in uart.written
+
+
+def test_send_text_message_returns_true_on_ok(uart, reset_pin):
+    lte = make_lte(uart, reset_pin, {
+        "AT+CMGF=1": [b"OK"],
+        b"\x1a\r": [b"+CMGS: 1", b"OK"],
+    })
+
+    assert lte.send_text_message("+441234567890", "hello") is True
+
+    written = b"".join(w if isinstance(w, bytes) else w.encode("ascii") for w in uart.written)
+    assert b'AT+CMGF=1' in written
+    assert b'AT+CMGS="+441234567890"' in written
+    assert b"hello" in written
+    assert b"\x1a" in written

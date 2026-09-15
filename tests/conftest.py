@@ -36,9 +36,9 @@ class FakeUART:
 
     def write(self, data):
         self.written.append(data)
-        if isinstance(data, str):
-            for line in self.responses.get(data.strip(), []):
-                self._rx.append(line if isinstance(line, bytes) else line.encode("ascii"))
+        key = data.strip() if isinstance(data, str) else data
+        for line in self.responses.get(key, []):
+            self._rx.append(line if isinstance(line, bytes) else line.encode("ascii"))
 
     def flush(self):
         pass

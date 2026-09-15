@@ -8,6 +8,7 @@ Unreleased
 * Disable echo in `_wait_ready` so state reads work after bring-up, not only after `connect()`
 * Return `None` from `signal_quality()` for the `99` "no signal" sentinel instead of a bogus positive dBm
 * Parse the digits from `iccid()` rather than returning the whole `+ICCID:` line
+* Add `send_text_message()`, harvested from `pimoroni-pico-rp2350` `61b10ed`, now setting text mode (`AT+CMGF=1`) first
 
 1.0.0
 -----
