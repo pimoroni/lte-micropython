@@ -7,6 +7,7 @@ Unreleased
 * Treat `+CME ERROR:` and `+CMS ERROR:` replies as terminal, raising the module's text instead of timing out
 * Disable echo in `_wait_ready` so state reads work after bring-up, not only after `connect()`
 * Return `None` from `signal_quality()` for the `99` "no signal" sentinel instead of a bogus positive dBm
+* Parse the digits from `iccid()` rather than returning the whole `+ICCID:` line
 
 1.0.0
 -----

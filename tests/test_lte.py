@@ -41,11 +41,10 @@ def test_signal_quality_on_error_returns_none(uart, reset_pin):
     assert lte.signal_quality() is None
 
 
-def test_iccid_returns_whole_response_line(uart, reset_pin):
+def test_iccid_returns_digits(uart, reset_pin):
     lte = make_lte(uart, reset_pin, {"AT+CICCID": [b"+ICCID: 89882280666142410640", b"OK"]})
 
-    # Baseline behaviour: the raw line is returned, prefix and all.
-    assert lte.iccid() == "+ICCID: 89882280666142410640"
+    assert lte.iccid() == "89882280666142410640"
 
 
 def test_iccid_on_cme_error_returns_none(uart, reset_pin):

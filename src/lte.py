@@ -60,8 +60,9 @@ class LTE:
 
     def iccid(self):
         try:
-            return self._send_at_command("AT+CICCID", 1)
-        except CellularError:
+            response = self._send_at_command("AT+CICCID", 1)
+            return response.split(":")[1].strip()
+        except (CellularError, IndexError):
             return None
 
     def status(self):
